@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome!</h1>
+    </header>
+    <main class="container">
+        <div>
+            <a th:href="@{/people}">People page</a>
+        </div>
+        <div>
+            <a th:href="@{/api/v1/people}">REST People page</a>
+        </div>
+    </main>
+</body>
+</html>

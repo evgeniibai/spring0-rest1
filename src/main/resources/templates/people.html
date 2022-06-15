@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>People Page</title>
+</head>
+<body>
+    <main class="container">
+        <div th:switch="${people.isEmpty()}">
+            <div th:case="true">
+                <h1>People list without any person!</h1>
+            </div>
+            <div th:case="false">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="person: ${people}">
+                            <td th:text="${person.id}">Person ID</td>
+                            <td th:text="${person.firstName}">Person First Name</td>
+                            <td th:text="${person.lastName}">Person Last Name</td>
+                            <td th:text="${person.status}">Person Status</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <a th:href="@{/}">Back</a>
+    </footer>
+</body>
+</html>
