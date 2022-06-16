@@ -3,8 +3,10 @@ package org.example.spring.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
@@ -18,15 +20,19 @@ public class Person {
     @Column(name = "p_id", nullable = false)
     private Long id;
 
-    @Column(name = "p_email", nullable = false, length = 100)
+    @NotBlank(message = "The email field cannot be empty!")
+    @Column(name = "p_email", nullable = false, length = 100, unique = true)
     private String email;
 
+    @NotBlank
     @Column(name = "p_password", nullable = false)
     private String password;
 
+    @NotBlank
     @Column(name = "p_first_name", nullable = false, length = 50)
     private String firstName;
 
+    @NotBlank
     @Column(name = "p_last_name", nullable = false, length = 100)
     private String lastName;
 

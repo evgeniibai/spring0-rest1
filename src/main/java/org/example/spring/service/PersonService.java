@@ -7,9 +7,11 @@ import java.util.List;
 public interface PersonService {
     List<Person> getAllPersons();
 
-    Person getOne(long id);
+    Person getOne(long personId);
 
     Person savePerson(Person person);
 
-    void deletePerson(long id);
+    Person updatePerson(long personId, Person person);
+
+    String deletePerson(long personId);
 }

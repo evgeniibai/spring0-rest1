@@ -9,14 +9,14 @@ import org.example.spring.model.Status;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 @Getter
-public class PersonOutDTO {
+public class PersonResponseDTO {
     private Long id;
     private String firstName;
     private String lastName;
     private Status status;
 
-    public static PersonOutDTO fromPerson(Person person) {
-        return new PersonOutDTOBuilder()
+    public static PersonResponseDTO fromPerson(Person person) {
+        return new PersonResponseDTOBuilder()
                 .id(person.getId())
                 .firstName(person.getFirstName())
                 .lastName(person.getLastName())

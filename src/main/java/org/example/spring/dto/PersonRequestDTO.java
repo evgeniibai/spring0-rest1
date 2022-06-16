@@ -8,7 +8,7 @@ import org.example.spring.model.Status;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
-public class PersonInDTO {
+public class PersonRequestDTO {
     private String email;
     private String password;
     private String firstName;

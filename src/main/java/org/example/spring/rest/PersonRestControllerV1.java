@@ -1,14 +1,13 @@
 package org.example.spring.rest;
 
-import org.example.spring.dto.PersonInDTO;
-import org.example.spring.dto.PersonOutDTO;
+import org.example.spring.dto.PersonRequestDTO;
+import org.example.spring.dto.PersonResponseDTO;
 import org.example.spring.model.Person;
 import org.example.spring.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,31 +24,35 @@ public class PersonRestControllerV1 {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public List<PersonOutDTO> showAllPeople() {
+    public List<PersonResponseDTO> showAllPeople() {
         List<Person> people = service.getAllPersons();
         return people.stream()
-                .map(PersonOutDTO::fromPerson)
+                .map(PersonResponseDTO::fromPerson)
                 .collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/{id}")
-    public PersonOutDTO showOneById(@PathVariable long id) {
-        return PersonOutDTO.fromPerson(service.getOne(id));
+    @GetMapping("/{personId}")
+    public PersonResponseDTO showOneById(@PathVariable long personId) {
+        return PersonResponseDTO.fromPerson(service.getOne(personId));
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Person savePerson(@Valid @RequestBody PersonInDTO personDTO) {
+    public Person savePerson(@RequestBody PersonRequestDTO personDTO) {
         Person person = personDTO.toPerson();
         return service.savePerson(person);
     }
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PutMapping("/{personId}")
+    public Person updatePerson(@PathVariable long personId, @RequestBody PersonRequestDTO personDTO) {
+        Person person = personDTO.toPerson();
+        return service.updatePerson(personId, person);
+    }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{id}")
-    public String deletePerson(@PathVariable long id) {
-        service.deletePerson(id);
-        //TODO dont return String- why?
-        return "Deleted!";
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @DeleteMapping("/{personId}")
+    public String deletePerson(@PathVariable long personId) {
+        return service.deletePerson(personId);
     }
 }

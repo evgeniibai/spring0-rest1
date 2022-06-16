@@ -28,10 +28,10 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person getOne(long id) {
-        log.info("getOne: get person by ID: {}", id);
-        return repository.findById(id)
-                .orElseThrow(() -> new PersonNotFoundException("Person with ID: " + id + " not found!"));
+    public Person getOne(long personId) {
+        log.info("getOne: get person by ID: {}", personId);
+        return repository.findById(personId)
+                .orElseThrow(() -> new PersonNotFoundException("Person with ID: " + personId + " not found!"));
     }
 
     @Override
@@ -42,8 +42,17 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void deletePerson(long id) {
-        log.info("deletePerson: delete person from db with ID: {}", id);
-        repository.deleteById(id);
+    public Person updatePerson(long personId, Person person) {
+        log.info("updatePerson setting id {} at Request person", personId);
+        person.setId(personId);
+        log.info("updatePerson save {} in db", person);
+        return repository.save(person);
+    }
+
+    @Override
+    public String deletePerson(long personId) {
+        log.info("deletePerson: delete person from db with ID: {}", personId);
+        repository.deleteById(personId);
+        return "Deleted!";
     }
 }
